@@ -1,4 +1,4 @@
-// Created by Ethan Foss on 2018-03-09.
+// Created by Ethan Foss (B00764435) on 2018-03-09.
 // This program finds the convex hull of a given set of points
 
 #include <stdio.h>
@@ -117,7 +117,15 @@ void convexHull(int x[], int y[], int size){
             if ((jX != C[i][0] || jY != C[i][1]) && (jX != kX || jY != kY)) {
                 //If the k point set is counterclockwise from the j point set
                 if ((((kX - C[i][0]) * (jY - C[i][1])) - ((jX - C[i][0]) * (kY - C[i][1]))) < 0) {
+                    //Mark that another point has passed the test
                     numChecked = numChecked+1;
+                //If the above computation results in 0, the k and j points must lie on the same line
+                } else if((((kX - C[i][0]) * (jY - C[i][1])) - ((jX - C[i][0]) * (kY - C[i][1]))) == 0){
+                	//If the j point is farther away than the k point
+                	if(((jX*jX)+(jY*jY)) > ((kX*kX)+(kY*kY))){
+                		//Mark that another point has passed the test
+                		numChecked = numChecked+1;
+                	}
                 }
                 //If all of the necessary points have been checked
                 //and the k point is confirmed to be counterclockwise
